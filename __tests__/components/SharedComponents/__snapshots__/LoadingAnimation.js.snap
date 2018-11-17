@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingAnimation test Snapshot with isLoading false 1`] = `null`;
+
+exports[`LoadingAnimation test Snapshot with isLoading true 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="div"
+  >
+    <LinearProgress />
+  </div>
+</div>
+`;
