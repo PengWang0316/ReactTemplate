@@ -14,6 +14,19 @@ const styles = theme => ({
   flex: {
     display: 'flex',
   },
+  background: {
+    boxShadow: '1px 1px 2px 0 #d0d0d0',
+    background: 'transparent',
+    backgroundColor: 'white',
+    border: '1px solid #ccc',
+    borderColor: '#e4e4e4 #bebebd #bebebd #e4e4e4',
+    padding: 10,
+    marginTop: 120,
+    marginLeft: 40,
+    marginRight: 40,
+    paddingLeft: 40,
+    paddingRight: 40,
+  }
 });
 
 /** The component that shows the home page containt */
@@ -59,12 +72,12 @@ export class HomePageContainer extends Component {
   render() {
     const { suggestionList } = this.state;
     return (
-      <Fragment>
+      <div className={this.props.classes.background}>
         <ButtonBases
           handleActiviteClick={this.handleActiviteClick}
         />
         {suggestionList && <GridList suggestionList={suggestionList} />}
-      </Fragment>
+      </div>
     );
   }
 }
