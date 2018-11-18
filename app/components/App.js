@@ -15,7 +15,7 @@ import { parserUserFromJwt } from '../actions/UserActions';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
 import {
-  HOME_PAGE_URL,
+  HOME_PAGE_URL, LOGIN_REDIRECT_RUL,
 } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
@@ -42,6 +42,10 @@ const theme = createMuiTheme({
 /* istanbul ignore next */
 // const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" */ './containers/HomePageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 const HomePage = React.lazy(() => import('./containers/HomePageContainer'));
+const LoginRedirect = React.lazy(() => import('./LoginRedirect'));
+
+// const LoginRedirect = importedComponent(() => import(/* webpackChunkName: "LoginRedirect" */ './LoginRedirect').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+
 /**
  * The root component that contains the theme, routers, navbar, and login dialog
  */
@@ -119,6 +123,7 @@ export class App extends Component {
                 <Suspense fallback={<LoadingAnimation />}>
                   <Switch>
                     <Route exact path={HOME_PAGE_URL} component={() => <HomePage />} />
+                    <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />
                     <Route render={() => <p>Not Fount!</p>} />
                   </Switch>
                 </Suspense>

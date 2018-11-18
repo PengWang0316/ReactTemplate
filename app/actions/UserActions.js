@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS } from './ActionTypes';
+import {
+  USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS, FETCH_EVENTS_SUCCESS,
+} from './ActionTypes';
 import {
   API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY, API_LOGIN_WITH_PASSWORD,
+  API_FETCH_EVENTS,
 } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
-
 
 const userLogoutSuccess = () => ({
   type: USER_LOGOUT_SUCCESS,
@@ -20,6 +22,11 @@ const userLoginSuccess = user => ({
 const parserUserFromJwtSuccess = user => ({
   type: PARSER_USER_FROM_JWT_SUCCESS,
   user
+});
+
+const fetchEventsSuccess = events => ({
+  type: FETCH_EVENTS_SUCCESS,
+  events,
 });
 
 export const emptyUser = () => userLoginSuccess({});
@@ -42,3 +49,10 @@ export const checkUsernameAvailable = username => new Promise((resolve, reject) 
 
 export const parserUserFromJwt = jwtMessage => dispatch => axios.get(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } })
   .then(({ data }) => dispatch(parserUserFromJwtSuccess(data))).catch(err => console.error(err));
+
+export const fetchCalendarEvents = jwt => dispatch => {
+  console.log('called');
+  axios.get(API_FETCH_EVENTS, { params: { jwt } })
+  .then(({ data }) => dispatch(fetchEventsSuccess(data)))
+  .catch(err => console.error(err));
+};
