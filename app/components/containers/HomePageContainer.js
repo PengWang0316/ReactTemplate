@@ -1,7 +1,19 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 
+import Card from '../Card';
+import GridList from '../GridList';
+import { withStyles } from '@material-ui/core/styles';
+import FloatingActionButtonZoom from '../TabContainer';
+import ButtonBases from '../ButtonBases';
+
 import { fetchCalendarEvents as fetchCalendarEventsAction } from '../../actions/UserActions';
+
+const styles = theme => ({
+  flex: {
+    display: 'flex',
+  },
+});
 
 /** The component that shows the home page containt */
 export class HomePageContainer extends Component {
@@ -33,7 +45,34 @@ export class HomePageContainer extends Component {
     const { user } = this.props;
     return (
       <Fragment>
-        {user.jwt}
+        <br />
+        <br />
+        <ButtonBases></ButtonBases>
+        <GridList />
+        <div className={classes.flex}>
+          <Card
+            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
+            title="Hiking Boots"
+            desc="Hiking Boots are essential"
+          />
+          <Card
+            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
+            title="Hiking Boots"
+            desc="Hiking Boots are essential"
+          />
+          <Card
+            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
+            title="Hiking Boots"
+            desc="Hiking Boots are essential"
+          />            
+        </div>  
+        <FloatingActionButtonZoom>
+        <Card
+            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
+            title="Hiking Boots"
+            desc="Hiking Boots are essential"
+          />
+        </FloatingActionButtonZoom>
       </Fragment>
     );
   }
@@ -45,4 +84,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchCalendarEvents: jwt => dispatch(fetchCalendarEventsAction(jwt)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(HomePageContainer));

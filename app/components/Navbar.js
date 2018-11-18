@@ -108,13 +108,13 @@ export class Navbar extends Component {
               <AppBar position="static" className={classes.appbar} data-testid="navbar">
                 <Toolbar>
                   <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
-                    <Typography variant="h6" color="inherit">Name of the project</Typography>
+                    <Typography variant="h6" color="inherit">GearUp</Typography>
                   </Link>
                   <Hidden only="xs">
                     <Link to={FakePAGEURL} className={classes.link}>
-                      <Button color="inherit" data-testid="buttonA">ButtonA</Button>
+                      <Button color="inherit" data-testid="buttonA"></Button>
                     </Link>
-                    <Button color="inherit" data-testid="buttonB">ButtonB</Button>
+                    <Button color="inherit" data-testid="buttonB"></Button>
                     <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
                       {user._id ? (
                         <Fragment>
