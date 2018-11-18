@@ -9,3 +9,5 @@ export const API_CHECK_USERNAME_AVAILABLE = `${API_BASE_URL}/auth/checkUsernameA
 export const API_LOGIN_WITH_PASSWORD = `${API_BASE_URL}/auth/loginWithPassword`;
 export const API_REGISTER_USER = `${API_BASE_URL}/auth/registerUser`;
 export const API_FETCH_EVENTS = `${API_BASE_URL}/fetchEvents`;
+export const API_FETCH_SUGGESTIONS = `${API_BASE_URL}/fetchSuggestions`;
+export const API_FETCH_ACTIVITES = `${API_BASE_URL}/fetchActivites`;

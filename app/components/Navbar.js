@@ -76,7 +76,7 @@ export class Navbar extends Component {
    */
   handleLoginButtonClick = () => {
     const { user, logout, history } = this.props;
-    if (user._id) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
+    if (user.jwt) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
       // this.setState({ open: false, logoutSnackbarOpen: true });
       this.handleLogoutAction();
       logout();
@@ -116,7 +116,7 @@ export class Navbar extends Component {
                     </Link>
                     <Button color="inherit" data-testid="buttonB"></Button>
                     <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
-                      {user._id ? (
+                      {user.jwt ? (
                         <Fragment>
                           {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}
                           <Typography color="inherit">Logout</Typography>
@@ -147,7 +147,7 @@ export class Navbar extends Component {
                         </Link>
                       </MenuItem>
                       <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
-                        {user._id ? (
+                        {user.jwt ? (
                           <Fragment>
                             {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}
                             <Typography color="textPrimary">Logout</Typography>

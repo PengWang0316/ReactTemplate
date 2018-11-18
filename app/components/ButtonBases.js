@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 
@@ -75,33 +77,68 @@ const styles = theme => ({
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
   },
+  titleText: {
+    marginBottom: 10,
+    width: '100%',
+    alignText: 'left',
+  }
 });
 
-const images = [
-  {
-    url: 'http://static-17.sinclairstoryline.com/resources/media/9f84a8ea-08a1-4656-8bdf-1399a314a677-120115_mount_rainier_660.jpg?1446963575903',
-    title: 'Hiking',
-    width: '40%',
-  },
-  {
-    url: 'https://wwwen.uni.lu/var/storage/images/bibliotheque/actualites/examens/1253803-1-fre-FR/examens.jpg',
-    title: 'Exam',
-    width: '30%',
-  },
-  {
-    url: 'https://media.socastsrm.com/wordpress/wp-content/blogs.dir/870/files/2018/05/Richmond-Night-Market-1600x450-770x365.jpg',
-    title: 'Night Market',
-    width: '30%',
-  },
-];
+/**
+ * The ButtonBases component
+ * @param {object} object contains propps' value
+ * @return {jsx} Return jsx
+ */
+function ButtonBases({
+  classes, user, activites, handleActiviteClick,
+}) {
+  /**
+   * Get the images information based on the latest calendar events.
+   * This should be refactored.
+   * @return {array} return a images array.
+   */
+  function getImages() {
+    const returnArr = [];
+    const activiteArr = [user.events.items.pop(), user.events.items.pop(), user.events.items.pop(), user.events.items.pop()];
+    activiteArr.forEach(activite => {
+      for (let i = 0; i < activites.length; i++) {
+        if (activite.summary.includes(activites[i].keywords)) {
+          returnArr.push({
+            url: activites[i].photo,
+            title: activites[i].title,
+            suggestIds: activites[i].suggestions,
+          });
+          break;
+        }
+      }
+    });
 
-function ButtonBases(props) {
-  const { classes } = props;
+    // Adding the with
+    let width;
+    switch (returnArr.length) {
+      case 4:
+        width = '25%';
+        break;
+      case 3:
+        width = '33%';
+        break;
+      case 2:
+        width = '50%';
+        break;
+      default:
+        width = '100%';
+    }
+    return returnArr.map(obj => ({ ...obj, width }));
+  }
 
+  let images;
+  if (user.events && activites) images = getImages();
   return (
     <div className={classes.root}>
-      {images.map(image => (
+      {/* <Typography className={classes.titleText} variant="h6">Your future activites</Typography> */}
+      {images && images.map(image => (
         <ButtonBase
+          onClick={() => handleActiviteClick(image.suggestIds)}
           focusRipple
           key={image.title}
           className={classes.image}
@@ -138,4 +175,8 @@ ButtonBases.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ButtonBases);
+const mapStateToProps = state => ({
+  user: state.user,
+  activites: state.activites,
+});
+export default connect(mapStateToProps)(withStyles(styles)(ButtonBases));

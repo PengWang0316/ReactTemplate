@@ -1,13 +1,14 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
-
-import Card from '../Card';
-import GridList from '../GridList';
 import { withStyles } from '@material-ui/core/styles';
-import FloatingActionButtonZoom from '../TabContainer';
+
+
+import GridList from '../GridList';
 import ButtonBases from '../ButtonBases';
 
 import { fetchCalendarEvents as fetchCalendarEventsAction } from '../../actions/UserActions';
+import { fetchSuggestions as fetchSuggestionsAction } from '../../actions/SuggestionActions';
+import { fetchActivites as fetchActivitesAction } from '../../actions/ActiviteActions';
 
 const styles = theme => ({
   flex: {
@@ -20,9 +21,20 @@ export class HomePageContainer extends Component {
   static a = 0;
 
   /**
-   * d
-   * @param {object} nextProps d
-   * @param {object} preState d
+   * Call the actions
+   * @param {object} props values
+   * @return {object} return the next state
+   */
+  constructor(props) {
+    super(props);
+    if (!props.suggestions) props.fetchSuggestions();
+    if (!props.activites) props.fetchActivites();
+  }
+
+  /**
+   * Call the fetchCalendarEvents action if has jwt
+   * @param {object} nextProps values repersent after change
+   * @param {object} preState has old state values
    * @return {object} return the next state
    */
   static getDerivedStateFromProps(nextProps, preState) {
@@ -36,43 +48,22 @@ export class HomePageContainer extends Component {
 
   state = {
     isLoadEvents: false,
+    suggestionList: null,
   };
+
+  handleActiviteClick = suggestionList => this.setState({ suggestionList });
 
   /**
    * @return {jsx} return jsx
    */
   render() {
-    const { user } = this.props;
+    const { suggestionList } = this.state;
     return (
       <Fragment>
-        <br />
-        <br />
-        <ButtonBases></ButtonBases>
-        <GridList />
-        <div className={classes.flex}>
-          <Card
-            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
-            title="Hiking Boots"
-            desc="Hiking Boots are essential"
-          />
-          <Card
-            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
-            title="Hiking Boots"
-            desc="Hiking Boots are essential"
-          />
-          <Card
-            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
-            title="Hiking Boots"
-            desc="Hiking Boots are essential"
-          />            
-        </div>  
-        <FloatingActionButtonZoom>
-        <Card
-            image="https://s7d3.scene7.com/is/image/LaCrosse/37440?$lacrosse_large_thumb_2x$"
-            title="Hiking Boots"
-            desc="Hiking Boots are essential"
-          />
-        </FloatingActionButtonZoom>
+        <ButtonBases
+          handleActiviteClick={this.handleActiviteClick}
+        />
+        {suggestionList && <GridList suggestionList={suggestionList} />}
       </Fragment>
     );
   }
@@ -80,8 +71,12 @@ export class HomePageContainer extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
+  suggestions: state.suggestions,
+  activites: state.activites,
 });
 const mapDispatchToProps = dispatch => ({
   fetchCalendarEvents: jwt => dispatch(fetchCalendarEventsAction(jwt)),
+  fetchSuggestions: () => dispatch(fetchSuggestionsAction()),
+  fetchActivites: () => dispatch(fetchActivitesAction()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(HomePageContainer));
