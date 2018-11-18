@@ -36,7 +36,7 @@ const styles = theme => ({
   appbar: {
     maxHeight: 55,
     position: 'sticky',
-    top: 0
+    top: 0,
   },
   avatar: {
     width: 30,
@@ -108,7 +108,7 @@ export class Navbar extends Component {
               <AppBar position="static" className={classes.appbar} data-testid="navbar">
                 <Toolbar>
                   <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
-                    <Typography variant="h6" color="inherit">GearUp</Typography>
+                    <Typography variant="h6" color="inherit">SnapSchedule</Typography>
                   </Link>
                   <Hidden only="xs">
                     <Link to={FakePAGEURL} className={classes.link}>
