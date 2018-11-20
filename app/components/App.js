@@ -13,6 +13,7 @@ import CheckCircleIconSnackbar from './snackbars/CheckCircleIconSnackbar';
 import Navbar from './Navbar';
 import { parserUserFromJwt } from '../actions/UserActions';
 import LoginDialogContext from '../contexts/LoginDialogContext';
+import Header from './Header';
 
 import {
   HOME_PAGE_URL, LOGIN_REDIRECT_RUL,
@@ -121,6 +122,7 @@ export class App extends Component {
               <Navbar />
               <main>
                 <Suspense fallback={<LoadingAnimation />}>
+                  <Header />
                   <Switch>
                     <Route exact path={HOME_PAGE_URL} component={() => <HomePage />} />
                     <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />

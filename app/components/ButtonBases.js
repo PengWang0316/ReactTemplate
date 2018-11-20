@@ -12,6 +12,8 @@ const styles = theme => ({
     flexWrap: 'wrap',
     minWidth: 300,
     width: '100%',
+    backgroundColor: 'white',
+    padding: '20px 10px',
   },
   image: {
     position: 'relative',

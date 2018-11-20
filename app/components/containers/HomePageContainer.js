@@ -17,11 +17,10 @@ const styles = theme => ({
   background: {
     boxShadow: '1px 1px 2px 0 #d0d0d0',
     background: 'transparent',
-    backgroundColor: 'white',
     border: '1px solid #ccc',
     borderColor: '#e4e4e4 #bebebd #bebebd #e4e4e4',
     padding: 10,
-    marginTop: 120,
+    marginTop: 50,
     marginLeft: 40,
     marginRight: 40,
     paddingLeft: 40,
